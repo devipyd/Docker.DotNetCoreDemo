@@ -8,20 +8,20 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1809 AS build
-WORKDIR /src
-COPY ["Project/DNCD.Project.Portal/DNCD.Project.Portal.csproj", "Project/DNCD.Project.Portal/"]
-COPY ["Services/API/DNCD.Services.API.Proxy/DNCD.Services.API.Proxy.csproj", "Services/API/DNCD.Services.API.Proxy/"]
-COPY ["Common/DNCD.Common.Base/DNCD.Common.Base.csproj", "Common/DNCD.Common.Base/"]
-RUN dotnet restore "Project/DNCD.Project.Portal/DNCD.Project.Portal.csproj"
-COPY . .
-WORKDIR "/src/Project/DNCD.Project.Portal"
-RUN dotnet build "DNCD.Project.Portal.csproj" -c Release -o /app/build
+#FROM mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1809 AS build#
+#WORKDIR /src
+#COPY ["Project/DNCD.Project.Portal/DNCD.Project.Portal.csproj", "Project/DNCD.Project.Portal/"]
+#COPY ["Services/API/DNCD.Services.API.Proxy/DNCD.Services.API.Proxy.csproj", "Services/API/DNCD.Services.API.Proxy/"]
+#COPY ["Common/DNCD.Common.Base/DNCD.Common.Base.csproj", "Common/DNCD.Common.Base/"]
+#RUN dotnet restore "Project/DNCD.Project.Portal/DNCD.Project.Portal.csproj"
+#COPY . .
+#WORKDIR "/src/Project/DNCD.Project.Portal"
+#RUN dotnet build "DNCD.Project.Portal.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "DNCD.Project.Portal.csproj" -c Release -o /app/publish
+#FROM build AS publish
+#RUN dotnet publish "DNCD.Project.Portal.csproj" -c Release -o /app/publish
 
-FROM base AS final
-WORKDIR /app
+#FROM base AS final
+#WORKDIR /app
 #COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DNCD.Project.Portal.dll"]
+#ENTRYPOINT ["dotnet", "DNCD.Project.Portal.dll"]
